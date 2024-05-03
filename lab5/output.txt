@@ -1,0 +1,8 @@
+Before:
+Text   with   multiple  
+
+
+
+spaces, wrong dashes -, wrong quotes "",	wrong tabs and wrong   line   breaks.
+After:
+Text with multiple» spaces, wrong dashes -, wrong quotes "", wrong tabs and wrong line breaks.
