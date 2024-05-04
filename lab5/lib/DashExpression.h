@@ -2,12 +2,11 @@
 #define DASH_EXPRESSION_H
 
 #include <string>
-#include <algorithm>
 
-#include "AbstractExpression.h"
+#include "Expression.h"
 #include "Context.h"
 
-class DashExpression : public AbstractExpression{
+class DashExpression : public Expression{
 public:
   std::wstring Interpret(Context*);
 };

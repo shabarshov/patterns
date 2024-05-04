@@ -1,37 +1,41 @@
 #include <iostream>
 #include <string>
 
+#include <io.h>
+#include <fcntl.h>
+#include <stdio.h>
+
+#include "../lib/Expression.h"
 #include "../lib/Context.h"
-// #include "../lib/DashExpression.h"
+
 #include "../lib/NewLineExpression.h"
-#include "../lib/QuoteExpression.h"
-#include "../lib/SpaceExpression.h"
-// #include "../lib/TabExpression.h"
-#include "../lib/WhitespaceExpression.h"
+
+#include "../lib/SpaceCompoundExpression.h"
+#include "../lib/SymbolCompoundExpression.h"
 
 int main() {
-  Context context(L"Text   with   \u201Cmultiple\u201D  \n\n\n\nspaces, wrong dashes -, wrong quotes \"\",\twrong tabs and wrong   line   breaks.");
+  _setmode(_fileno(stdout), _O_U16TEXT); // <= Windows madness
+  Context context(L"Text   with   ( multiple ) ,  spaces, \n\nwrong  \n\nline \n\nbreaks, wrong - dashes ,wrong “quotes” and \twrong tabs.");
 
-  // DashExpression dashExpression;
-  NewLineExpression newLineExpression;
-  QuoteExpression quoteExpression;
-  SpaceExpression spaceExpression;
-  // TabExpression tabExpression;
-  WhitespaceExpression whitespaceExpression;
+  Expression* expressions[] = {
+    new SymbolCompoundExpression(),
+    new SpaceCompoundExpression(),
+    new NewLineExpression()
+  };
 
-  std::cout << "Before:" << std::endl;
+  std::wcout << L"Before:" << std::endl;
   std::wcout << context.getText() << std::endl;
 
-  // dashExpression.Interpret(&context);
-  newLineExpression.Interpret(&context);
-  quoteExpression.Interpret(&context);
-  spaceExpression.Interpret(&context);
-  // context.setText(tabExpression.Interpret(&context));
-  whitespaceExpression.Interpret(&context);
+  for (Expression* expression : expressions) {
+    expression->Interpret(&context);
+  }
 
-  std::cout << "After:" << std::endl;
+  std::wcout << L"\nAfter:" << std::endl;
   std::wcout << context.getText() << std::endl;
+
+  for (Expression* expression : expressions) {
+    delete expression;
+  }
 
   return 0;
 }
-

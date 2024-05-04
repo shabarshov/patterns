@@ -2,12 +2,11 @@
 #define QUOTE_EXPRESSION_H
 
 #include <string>
-#include <algorithm>
 
-#include "AbstractExpression.h"
+#include "Expression.h"
 #include "Context.h"
 
-class QuoteExpression : public AbstractExpression{
+class QuoteExpression : public Expression{
 public:
   std::wstring Interpret(Context*);
 };

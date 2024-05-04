@@ -2,16 +2,12 @@
 #define NEW_LINE_EXPRESSION_H
 
 #include <string>
-#include <algorithm>
 #include <regex>
 
-#include "AbstractExpression.h"
+#include "Expression.h"
 #include "Context.h"
 
-class NewLineExpression : public AbstractExpression {
-// private:
-//   std::regex regex("\\n+");
-
+class NewLineExpression : public Expression {
 public:
   std::wstring Interpret(Context*);
 };
